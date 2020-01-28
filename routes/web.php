@@ -18,12 +18,19 @@ $router->get('/', function () use ($router) {
 //users routes
 $router -> get('/users', 'UsersController@index');
 $router -> post('/users', 'UsersController@store');
-$router -> get('/user/{id_user}', 'UsersController@show');
-$router -> put('/user/{id_user}', 'UsersController@edit');
-$router -> delete('/user/{id_user}', 'UsersController@destroy');
+$router -> get('/user/{id}', 'UsersController@show');
+$router -> put('/user/{id}', 'UsersController@edit');
+$router -> delete('/user/{id}', 'UsersController@destroy');
 
 //auth
 $router -> group(['prefix' => 'auth'], function () use ($router){
     $router -> post('/register', 'AuthController@register');
     $router -> post('/login', 'AuthController@login');
 });
+
+//author info routes
+$router -> get('/authors', 'AuthorsController@index');
+$router -> get('/author/{id}', 'AuthorsController@show');
+$router -> post('/authors', 'AuthorsController@store');
+$router -> put('/author/{id}', 'AuthorsController@edit');
+$router -> delete('/author/{id}', 'AuthorsController@destroy');

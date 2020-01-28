@@ -20,8 +20,8 @@
       return response() -> json($response, 200);
     }
 
-    public function show($id_user){
-      $user = User::where('id_user', $id_user) -> first();
+    public function show($id){
+      $user = User::where('id_user', $id) -> first();
 
       if(!$user){
         abort(404);
@@ -50,9 +50,9 @@
     }
 
 
-    public function edit(Request $request, $id_user){
+    public function edit(Request $request, $id){
       $input = $request -> all();
-      $user = User::where('id_user', $id_user) -> first();
+      $user = User::where('id_user', $id) -> first();
 
       if(!$user){
         abort(404);
@@ -75,8 +75,8 @@
       return response() -> json($user, 200);
     }
 
-    public function destroy($id_user){
-      $user = User::where('id_user', $id_user) -> first();
+    public function destroy($id){
+      $user = User::where('id_user', $id) -> first();
 
       if(!$user){
         abort(404);
