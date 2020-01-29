@@ -15,22 +15,24 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-//users routes
-$router -> get('/users', 'UsersController@index');
-$router -> post('/users', 'UsersController@store');
-$router -> get('/user/{id}', 'UsersController@show');
-$router -> put('/user/{id}', 'UsersController@edit');
-$router -> delete('/user/{id}', 'UsersController@destroy');
-
 //auth
 $router -> group(['prefix' => 'auth'], function () use ($router){
     $router -> post('/register', 'AuthController@register');
     $router -> post('/login', 'AuthController@login');
 });
 
-//author info routes
-$router -> get('/authors', 'AuthorsController@index');
-$router -> get('/author/{id}', 'AuthorsController@show');
-$router -> post('/authors', 'AuthorsController@store');
-$router -> put('/author/{id}', 'AuthorsController@edit');
-$router -> delete('/author/{id}', 'AuthorsController@destroy');
+$router -> group(['middleware' => ['auth']], function ($router){
+    //users routes
+    $router -> get('/users', 'UsersController@index');
+    $router -> post('/users', 'UsersController@store');
+    $router -> get('/user/{id}', 'UsersController@show');
+    $router -> put('/user/{id}', 'UsersController@edit');
+    $router -> delete('/user/{id}', 'UsersController@destroy');
+
+    //author info routes
+    $router -> get('/authors', 'AuthorsController@index');
+    $router -> get('/author/{id}', 'AuthorsController@show');
+    $router -> post('/authors', 'AuthorsController@store');
+    $router -> put('/author/{id}', 'AuthorsController@edit');
+    $router -> delete('/author/{id}', 'AuthorsController@destroy');
+});

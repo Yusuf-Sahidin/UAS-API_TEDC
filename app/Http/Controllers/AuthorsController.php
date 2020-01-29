@@ -3,6 +3,7 @@
 
   use App\Models\Author;
   use Illuminate\Http\Request;
+  use Illuminate\Support\Facades\Auth;
 
   class AuthorsController extends Controller{
     public function index(Request $request){
@@ -44,31 +45,16 @@
         return response() -> json($validator -> errors(), 400);
       }
 
-      $author = Author::create($input);
-
-      return response() -> json($author, 200);
-    }
-
-    public function edit(Request $request, $id){
-      $input = $request -> all();
-      $author = Author::where('id_author', $id) -> first();
+      $author = Author::Where('id_user', Auth::user() -> id_user) -> first();
 
       if(!$author){
-        abort(404);
+        $author = new Author;
+        $author -> id_user = Auth::user() -> id_user; 
       }
 
-      $validationRules = [
-        'id_user' => 'required|exists:users,id_user',
-        'nama_author' => 'required|min:10',
-        'deskripsi_diri' => 'required|min:20'
-      ];
-      $validator = \Validator::make($input, $validationRules);
+      $author -> nama_author = $request -> input('nama_author');
+      $author -> deskripsi_diri = $request -> input('deskripsi_diri');
 
-      if($validator -> fails()){
-        return response() -> json($validator -> errors(), 400);
-      }
-      
-      $author -> fill($input);
       $author -> save();
 
       return response() -> json($author, 200);
