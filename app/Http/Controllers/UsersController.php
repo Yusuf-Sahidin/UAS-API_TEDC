@@ -3,10 +3,25 @@
 
   use App\Models\User;
   use Illuminate\Http\Request;
+  use Illuminate\Support\Facades\Gate;
+  use Illuminate\Support\Facades\Auth;
 
   class UsersController extends Controller{
     public function index(Request $request){
-      $users = User::OrderBy("id_user", "DESC") -> paginate(2) -> toArray();
+
+      if(Gate::denies('admin')){
+        return response() -> json([
+          'success' => false,
+          'status' => 403,
+          'message' => 'you are unauthorized'
+        ], 403);
+      }
+      if(Auth::user() -> role == 'admin'){
+        $users = User::OrderBy("id_user", "DESC") -> paginate(2) -> toArray();
+      }else{
+        return false;
+      }
+      
       $response = [
         "total_count" => $users["total"],
         "limit" => $users["per_page"],
@@ -21,56 +36,23 @@
     }
 
     public function show($id){
-      $user = User::where('id_user', $id) -> first();
+
+      if(Gate::denies('admin')){
+        return response() -> json([
+          'success' => false,
+          'status' => 403,
+          'message' => 'you are unauthorized'
+        ], 403);
+      }
+      if(Auth::user() -> role == 'admin'){
+        $user = User::where('id_user', $id) -> first();
+      }else{
+        return false;
+      }
 
       if(!$user){
         abort(404);
       }
-
-      return response() -> json($user, 200);
-    }
-
-    public function store(Request $request){
-      $input = $request -> all();
-
-      $validationRules = [
-        'email' => 'required|email',
-        'password' => 'required|min:8',
-        'role' => 'required|in:admin,user'
-      ];
-      $validator = \Validator::make($input, $validationRules);
-
-      if($validator -> fails()){
-        return response() -> json($validator -> errors(), 400);
-      }
-
-      $user = User::create($input);
-
-      return response() -> json($user, 200);
-    }
-
-
-    public function edit(Request $request, $id){
-      $input = $request -> all();
-      $user = User::where('id_user', $id) -> first();
-
-      if(!$user){
-        abort(404);
-      }
-
-      $validationRules = [
-        'email' => 'required|email',
-        'password' => 'required|min:8',
-        'role' => 'required|in:admin,user'
-      ];
-      $validator = \Validator::make($input, $validationRules);
-
-      if($validator -> fails()){
-        return response() -> json($validator -> errors(), 400);
-      }
-      
-      $user -> fill($input);
-      $user -> save();
 
       return response() -> json($user, 200);
     }
@@ -82,10 +64,18 @@
         abort(404);
       }
 
+      if(Gate::denies('admin')){
+        return response() -> json([
+          'success' => false,
+          'status' => 403,
+          'message' => 'you are unauthorized'
+        ], 403);
+      }
+
       $user -> delete();
       $message = [
         'message' => 'berhasil menghapus',
-        'id_user' => $id_user
+        'id_user' => $id
       ];
 
       return response() -> json($message, 200);

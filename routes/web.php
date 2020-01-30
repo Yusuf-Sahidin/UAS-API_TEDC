@@ -24,9 +24,7 @@ $router -> group(['prefix' => 'auth'], function () use ($router){
 $router -> group(['middleware' => ['auth']], function ($router){
     //users routes
     $router -> get('/users', 'UsersController@index');
-    $router -> post('/users', 'UsersController@store');
     $router -> get('/user/{id}', 'UsersController@show');
-    $router -> put('/user/{id}', 'UsersController@edit');
     $router -> delete('/user/{id}', 'UsersController@destroy');
 
     //author info routes

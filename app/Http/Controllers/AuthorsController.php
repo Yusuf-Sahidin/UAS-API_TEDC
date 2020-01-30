@@ -35,7 +35,6 @@
       $input = $request -> all();
 
       $validationRules = [
-        'id_user' => 'required|exists:users,id_user',
         'nama_author' => 'required|min:10',
         'deskripsi_diri' => 'required|min:20'
       ];
