@@ -36,6 +36,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user -> role == 'admin';
         });
 
+        Gate::define('userOnly', function ($author) {
+            return $author -> role == 'user';
+        });
+
 
         $this->app['auth']->viaRequest('api', function ($request) {
             if ($request->input('api_token')) {

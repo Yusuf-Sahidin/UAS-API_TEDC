@@ -31,5 +31,9 @@
     public function getJWTCustomClaims(){
       return [];
     }
+
+    public function authors(){
+      return $this -> hasMany('App\Models\Author', 'id_user');
+    }
   }
 ?>

@@ -31,6 +31,5 @@ $router -> group(['middleware' => ['auth']], function ($router){
     $router -> get('/authors', 'AuthorsController@index');
     $router -> get('/author/{id}', 'AuthorsController@show');
     $router -> post('/authors', 'AuthorsController@store');
-    $router -> put('/author/{id}', 'AuthorsController@edit');
     $router -> delete('/author/{id}', 'AuthorsController@destroy');
 });
