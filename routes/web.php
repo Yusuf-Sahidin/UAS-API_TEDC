@@ -41,4 +41,9 @@ $router -> group(['middleware' => ['auth']], function ($router){
     $router -> delete('/dafba/{id}', 'DaftarController@destroy');
 
     //isi bacaan
+    $router -> get('/isii', 'IsiController@index');
+    $router -> get('/isi/{id}', 'IsiController@show');
+    $router -> post('/isii', 'IsiController@store');
+    $router -> put('/isi/{id}', 'IsiController@edit');
+    $router -> delete('/isi/{id}', 'IsiController@destroy');
 });

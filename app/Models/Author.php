@@ -21,5 +21,9 @@
     public function daftar(){
       return $this -> hasMany('App\Models\Daftar', 'id_author');
     }
+
+    public function isi(){
+      return $this -> hasMany('App\Models\Isi', 'id_author');
+    }
   }
 ?>

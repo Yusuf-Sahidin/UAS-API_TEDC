@@ -16,5 +16,9 @@
     public function author(){
       return $this -> belongsTo('App\Models\Author', 'id_author');
     }
+
+    public function isi(){
+      return $this -> hasMany('App\Models\Isi', 'id_daftar_bacaan');
+    }
   }
 ?>
