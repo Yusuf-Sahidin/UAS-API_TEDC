@@ -32,4 +32,13 @@ $router -> group(['middleware' => ['auth']], function ($router){
     $router -> get('/author/{id}', 'AuthorsController@show');
     $router -> post('/authors', 'AuthorsController@store');
     $router -> delete('/author/{id}', 'AuthorsController@destroy');
+
+    //list daftar bacaan routes
+    $router -> get('/dafbas', 'DaftarController@index');
+    $router -> get('/dafba/{id}', 'DaftarController@show');
+    $router -> post('/dafbas', 'DaftarController@store');
+    $router -> put('/dafba/{id}', 'DaftarController@edit');
+    $router -> delete('/dafba/{id}', 'DaftarController@destroy');
+
+    //isi bacaan
 });

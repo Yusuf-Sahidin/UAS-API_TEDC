@@ -17,5 +17,9 @@
     public function user(){
       return $this -> belongsTo('App\Models\User', 'id_user');
     }
+
+    public function daftar(){
+      return $this -> hasMany('App\Models\Daftar', 'id_author');
+    }
   }
 ?>
