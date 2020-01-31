@@ -20,5 +20,9 @@
     public function isi(){
       return $this -> hasMany('App\Models\Isi', 'id_daftar_bacaan');
     }
+
+    public function nanti(){
+      return $this -> hasMany('App\Models\Nanti', 'id_daftar_bacaan');
+    }
   }
 ?>

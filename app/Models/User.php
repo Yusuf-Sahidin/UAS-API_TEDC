@@ -35,5 +35,9 @@
     public function authors(){
       return $this -> hasMany('App\Models\Author', 'id_user');
     }
+
+    public function nanti(){
+      return $this -> hasMany('App\Models\Nanti', 'id_user');
+    }
   }
 ?>

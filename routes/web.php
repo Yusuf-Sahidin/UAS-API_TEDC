@@ -40,10 +40,16 @@ $router -> group(['middleware' => ['auth']], function ($router){
     $router -> put('/dafba/{id}', 'DaftarController@edit');
     $router -> delete('/dafba/{id}', 'DaftarController@destroy');
 
-    //isi bacaan
+    //isi bacaan routes
     $router -> get('/isii', 'IsiController@index');
     $router -> get('/isi/{id}', 'IsiController@show');
     $router -> post('/isii', 'IsiController@store');
     $router -> put('/isi/{id}', 'IsiController@edit');
     $router -> delete('/isi/{id}', 'IsiController@destroy');
+
+    //baca nanti routes
+    $router -> get('/nantis', 'NantiController@index');
+    $router -> get('/nanti/{id}', 'NantiController@show');
+    $router -> post('/nantis', 'NantiController@store');
+    $router -> delete('/nanti/{id}', 'NantiController@destroy');
 });

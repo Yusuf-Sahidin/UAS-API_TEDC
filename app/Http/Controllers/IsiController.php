@@ -35,6 +35,15 @@
     public function store(Request $request){
       $input = $request -> all();
 
+
+      if(Gate::denies('userOnly')){
+        return response() -> json([
+          'success' => false,
+          'status' => 403,
+          'message' => 'you are unauthorized'
+        ], 403);
+      }
+
       $validationRules = [
         'id_author' => 'required|exists:info_author,id_author',
         'id_daftar_bacaan' => 'required|exists:daftar_bacaan,id_daftar_bacaan',
@@ -61,10 +70,19 @@
         abort(404);
       }
 
+
+      if(Gate::denies('userOnly')){
+        return response() -> json([
+          'success' => false,
+          'status' => 403,
+          'message' => 'you are unauthorized'
+        ], 403);
+      }
+
       $validationRules = [
         'id_author' => 'required|exists:info_author,id_author',
         'id_daftar_bacaan' => 'required|exists:daftar_bacaan,id_daftar_bacaan',
-        'chapter' => 'required|min:1|unique:isi_bacaan',
+        'chapter' => 'required|min:1',
         'isi_cerita' => 'required|min:20'
       ];
       
